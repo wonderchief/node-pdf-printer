@@ -7,8 +7,8 @@ module.exports = {
   printFiles (pdfFiles, printerName, execPath, copies) {
     return new Promise((resolve, reject) => {
       execPath = execPath || path.join(__dirname.replace('app.asar', 'app.asar.unpacked'))
-      let createFile = 'chcp 65001\n@echo off \n'
-      createFile += 'cd ' + execPath + '\n'
+      let createFile = 'chcp 65001\r\n@echo off\r\n'
+      createFile += 'cd ' + execPath + '\r\n'
 
       if (printerName) {
         printerName = ' "' + printerName + '"'
@@ -23,11 +23,11 @@ module.exports = {
       }
 
       for (var i = 0; i < pdfFiles.length; i++) {
-        createFile += 'PDFtoPrinter.exe "' + pdfFiles[i] + '"' + printerName + copies +'\n'
+        createFile += 'PDFtoPrinter.exe "' + pdfFiles[i] + '"' + printerName + copies +'\r\n'
       }
       console.log(createFile)
-      createFile += 'exit /b 0 \n'
-      createFile += 'pause>nul \n'
+      createFile += 'exit /b 0 \r\n'
+      createFile += 'pause>nul \r\n'
 
       const batFileUrl = path.join(execPath, 'printTmp.bat')
       fs.writeFile(batFileUrl, createFile, function (err) {
@@ -38,7 +38,7 @@ module.exports = {
             if (error) {
               reject(error)
             } else {
-              resolve(true)
+              resolve(stdout)
             }
           })
         }
