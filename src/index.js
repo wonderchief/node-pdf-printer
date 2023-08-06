@@ -7,7 +7,7 @@ module.exports = {
   printFiles (pdfFiles, printerName, execPath, copies) {
     return new Promise((resolve, reject) => {
       execPath = execPath || path.join(__dirname.replace('app.asar', 'app.asar.unpacked'))
-      let createFile = '@echo off \n'
+      let createFile = 'chcp 65001\n@echo off \n'
       createFile += 'cd ' + execPath + '\n'
 
       if (printerName) {
